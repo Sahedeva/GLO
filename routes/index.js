@@ -8,7 +8,7 @@ var socket_io = require('socket.io');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'GLO' });
 });
 
 router.get('/new', function(req,res,next){
