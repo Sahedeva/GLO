@@ -1,0 +1,21 @@
+{
+  "name": "GLO",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Robert Weilbaecher <robertgweilbaecher@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Sahedeva/GLO",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "socket.io": "^1.4.8"
+  }
+}
