@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 var socket_io = require('socket.io');
 
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'GLO' });
@@ -15,6 +14,9 @@ router.get('/new', function(req,res,next){
     res.render('new', {title: 'New User Test Form'})
 });
 
+router.get('/chat', function(req,res,next){
+  res.render('chat', { title: 'Chat Room'});
+});
 
 router.post('/new_user', function(req,res,next){
 	var name = req.body.name;
