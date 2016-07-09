@@ -2,21 +2,9 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var mongoose = require('mongoose');
-// var app = require('express')();
-// var http = require('http').Server(app);
-// var io = require('socket.io')(http);
+var socket_io = require('socket.io');
 
-// app.get('/', function(req, res){
-//   res.sendFile('index.html');
-// });
-//
-// io.on('connection',function(socket){
-//   console.log('a user connected');
-// });
-//
-// http.listen(3000,function(){
-//   console.log('listening on *:3000');
-// });
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -39,5 +27,6 @@ router.post('/new_user', function(req,res,next){
 		res.redirect('/new');
 	});
 });
+
 
 module.exports = router;
