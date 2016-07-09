@@ -7,11 +7,27 @@ var bodyParser = require('body-parser');
 var socket_io = require('socket.io');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var config = require('./config')
 
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var ParseServer = require('parse-server').ParseServer;
 
+// Config the parse server settings
+//
+var parseAPI = new ParseServer({ databaseURI: 'mongodb://seanBob:catdog6677@ds017155.mlab.com:17155,ds017155-a1.mlab.com:17155/glo?replicaSet=rs-ds017155',
+    cloud: './cloud/main.js',
+    verifyUserEmails: false,
+    appName: 'GLO',
+    appId: process.env.APP_ID || '3DSGLOBALROUNDUP',
+    fileKey: process.env.FILE_KEY || 'myFileKey',
+    masterKey: process.env.MASTER_KEY || config.secret,
+    serverURL: process.env.SERVER_URL || 'https://pure-caverns-99011.herokuapp.com/parse', //previously https://log-log.herokuapp.com/parse
+    // publicServerURL: 'http://log-log.lol/parse', //process.env.SERVER_URL
+});
+
+app.use('/parse', parseAPI);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
