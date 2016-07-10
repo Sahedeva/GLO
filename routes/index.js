@@ -2,6 +2,7 @@ module.exports = function(io){
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var Posse = require('../models/posse');
 var mongoose = require('mongoose');
 var request = require('request');
 
@@ -42,8 +43,21 @@ router.get('/newPosse',function(req,res,next){
   res.render('newPosse',{title:'New Posse Form'});
 });
 
-router.post('/createPosse', function(req,res,next){
 
+
+
+router.post('/createPosse', function(req,res,next){
+  // var query = require('url').parse(req.url,true).query;
+  var posseName = req.query.posseName;
+  var tempMembers = req.query.posseMembers;
+  // var members = tempMembers.split(',');
+  console.log(posseName);
+  console.log(tempMembers);
+  // console.log(members);
+  Posse.find({}, function(err, user){
+		Posse.collection.insert({posseName: posseName, members: tempMembers});
+	});
+  res.json('yes');
 });
 
 router.post('/new_user', function(req,res,next){
