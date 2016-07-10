@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var mongoose = require('mongoose');
+var request = require('request');
 
 
 /* GET home page. */
@@ -19,12 +20,19 @@ router.get('/chat', function(req,res,next){
 });
 
 router.post('/createOuting', function(req,res,next){
-  var name = req.body.name;
-  var members = req.body.members;
-  var time = req.body.time;
-  var destination = req.body.desitnation;
+	var name = req.body.name;
+	var members = req.body.members;
+	var time = req.body.time;
+	var destination = req.body.destination;
+	request('https://maps.googleapis.com/maps/api/geocode/json?address='+destination+'&key=AIzaSyCzamJCTDzw3LKpKk1TTyoDXu8lHoCzrS0', function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+			var loc = JSON.parse(body);
+			console.log(loc.results[0].geometry.location.lat);
+			console.log(loc.results[0].geometry.location.lng);
+		}
+	})
 
-})
+});
 
 router.get('/getPosse', function(req,res,next){
   res.json({allPosses:[{name:"Soroity Girls Night Out", members: ['Briana','Jewel','Crystal']},{name:"Frat Boys", members: ['Frank','Joe','Brad']},{name:"Wallflowers", members: ['Debbie Downer','Shy Girl']}]});
@@ -90,6 +98,8 @@ io.on('connection',function(socket){
   });
 
 });
+
+
 
 return router;
 }
