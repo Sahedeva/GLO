@@ -88,7 +88,7 @@ var clientId = 0;
 io.on('connection',function(socket){
   numClients++;
   clientId++
-  socket.on('join', function(channel, ack, oldChannel) {
+  socket.on('join', function(channel, oldChannel, ack) {
     socket.leave(oldChannel);
     socket.join(channel);
     ack();
@@ -119,7 +119,7 @@ io.on('connection',function(socket){
   });
   socket.on('eventJoin', function(data) {
         console.log('Client #',data.clientId,'sent us this dumb message:', data.message);
-        io.to('2').emit('IncomingJoin', {message: data.message, clientId: data.clientId});
+        io.to(data.channel).emit('IncomingJoin', {message: data.message, clientId: data.clientId});
   });
 
 });

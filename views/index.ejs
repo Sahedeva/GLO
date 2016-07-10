@@ -53,6 +53,8 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var clientId = 0;
+      var channel = "";
+      var oldChannel = "";
       var socket = io.connect('/');
       socket.on('conn', function(data){
         clientId = data.clientId;
@@ -83,8 +85,9 @@
       });
        $('.join').on('submit', function(event) {
           event.preventDefault();
-          var channel = $('#channel').val();
-          socket.emit('join', channel, function() {
+          oldChannel = channel;
+          channel = $('#channel').val();
+          socket.emit('join', channel, oldChannel, function() {
             console.log(channel);
           });
         });
@@ -93,7 +96,7 @@
         var message = $("#chatJoin").val();
         $("#chatJoin").val("");
         console.log(message);
-        socket.emit('eventJoin', { message: message, clientId:clientId });
+        socket.emit('eventJoin', { message: message, clientId:clientId , channel:channel});
       });
        socket.on('IncomingJoin', function(data) {
           console.log('Incoming message from client#',data.clientId,':', data.message);
