@@ -35,10 +35,13 @@ router.get('/newPosse',function(req,res,next){
   res.render('newPosse',{title:'New Posse Form'});
 });
 
+
+
+
 router.post('/createPosse', function(req,res,next){
-  var query = require('url').parse(req.url,true).query;
-  var posseName = query.posseName;
-  var tempMembers = query.posseMembers;
+  // var query = require('url').parse(req.url,true).query;
+  var posseName = req.query.posseName;
+  var tempMembers = req.query.posseMembers;
   // var members = tempMembers.split(',');
   console.log(posseName);
   console.log(tempMembers);
