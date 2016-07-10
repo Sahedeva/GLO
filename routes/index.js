@@ -2,6 +2,7 @@ module.exports = function(io){
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var Posse = require('../models/posse');
 var mongoose = require('mongoose');
 
 
@@ -38,10 +39,13 @@ router.post('/createPosse', function(req,res,next){
   var query = require('url').parse(req.url,true).query;
   var posseName = query.posseName;
   var tempMembers = query.posseMembers;
-  var members = tempMembers.split(',');
+  // var members = tempMembers.split(',');
   console.log(name);
   console.log(tempMembers);
-  console.log(members);
+  // console.log(members);
+  Posse.find({}, function(err, user){
+		Posse.collection.insert({name: name, members: tempMembers});
+	});
   res.json('yes');
 });
 
