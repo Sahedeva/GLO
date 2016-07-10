@@ -31,6 +31,9 @@ router.post('/createOuting', function(req,res,next){
 			var loc = JSON.parse(body);
 			console.log(loc.results[0].geometry.location.lat);
 			console.log(loc.results[0].geometry.location.lng);
+      Outing.find({}, function(err, outing){
+    		Outing.collection.insert({name: name, destination:destination, lat: loc.results[0].geometry.location.lat, lng: loc.results[0].geometry.location.lng});
+    	});
       res.json({lat:loc.results[0].geometry.location.lat,lng:loc.results[0].geometry.location.lng});
 		}
 	})
