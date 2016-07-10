@@ -23,8 +23,8 @@ router.get('/chat', function(req,res,next){
 
 router.post('/createOuting', function(req,res,next){
 	var name = req.body.name;
-	// var members = req.body.members;
-	// var time = req.body.time;
+	var members = req.body.members;
+	var curfew = req.body.curfew;
 	var destination = req.body.destination;
 	request('https://maps.googleapis.com/maps/api/geocode/json?address='+destination+'&key=AIzaSyCzamJCTDzw3LKpKk1TTyoDXu8lHoCzrS0&libraries=places', function (error, response, body) {
 		if (!error && response.statusCode == 200) {
@@ -32,7 +32,7 @@ router.post('/createOuting', function(req,res,next){
 			console.log(loc.results[0].geometry.location.lat);
 			console.log(loc.results[0].geometry.location.lng);
       Outing.find({}, function(err, outing){
-    		Outing.collection.insert({name: name, destination:destination, lat: loc.results[0].geometry.location.lat, lng: loc.results[0].geometry.location.lng});
+    		Outing.collection.insert({name: name, destination:destination, members: members, curfew: curfew, lat: loc.results[0].geometry.location.lat, lng: loc.results[0].geometry.location.lng});
     	});
       res.json({lat:loc.results[0].geometry.location.lat,lng:loc.results[0].geometry.location.lng});
 		}

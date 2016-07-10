@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var outingSchema = new mongoose.Schema({
   name: String,
   destination: String,
+  members: Array,
   time: String,
   lat: Number,
   lng: Number,
