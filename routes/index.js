@@ -9,6 +9,31 @@ var request = require('request');
 var querystring = require('querystring');
 
 /* Twilio stuff */
+// Twilio Credentials
+var accountSid = 'ACf3f47245558bab8ef0ad24f5f4c464d0';
+var authToken = "f5e95817975c0d7d9635ca0e14058113";
+
+//require the Twilio module and create a REST client
+var client = require('twilio')(accountSid, authToken);
+
+router.get('/phoneBob', function(req, res, next){
+  client.messages.create({
+      to: "+15047290928",
+      from: "+15042175696",
+      body: "Fight on!",
+      mediaUrl: "https://s-media-cache-ak0.pinimg.com/736x/10/5e/62/105e6250e9d7628db83dbf8fc901ac73.jpg",
+  }, function(err, data) {
+    if (data){
+      console.log(data.sid);
+    }
+    if (err){
+      console.log(err);
+    }
+  });
+});
+
+
+
 // var accountSid = 'ACf3f47245558bab8ef0ad24f5f4c464d0';
 // var authToken = "f5e95817975c0d7d9635ca0e14058113";
 // var client = require('twilio')(accountSid, authToken);
@@ -19,7 +44,7 @@ var querystring = require('querystring');
 //                     to: "+15047290928",
 //                     from: "+15045562763",
 //                     body: "Hey Bob! ",
-//                     mediaUrl: ,
+//                     mediaUrl: "",
 //                 }, function(err, message) {
 //                     console.log("hey");
 //                 });
