@@ -49,16 +49,14 @@ router.get('/newPosse',function(req,res,next){
 
 router.post('/createPosse', function(req,res,next){
   var query = require('url').parse(req.url,true).query;
-  var posseName = req.query;
-  var testQuery = querystring.parse(posseName);
-  // var tempMembers = req.query.posseMembers;
-  // var members = tempMembers.split(',');
+  var posseName = req.query.posseName;
+  var tempMembers = req.query.members;
+  var members = tempMembers.split(',');
   console.log(posseName);
-  console.log(testQuery);
-  // console.log(tempMembers);
-  // console.log(members);
+  console.log(tempMembers);
+  console.log(members);
   Posse.find({}, function(err, posse){
-		Posse.collection.insert({posseName: posseName, testQuery:testQuery});
+		Posse.collection.insert({posseName: posseName, members:members});
 	});
   res.json('yes');
 });
