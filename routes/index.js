@@ -40,11 +40,11 @@ router.post('/createPosse', function(req,res,next){
   var posseName = query.posseName;
   var tempMembers = query.posseMembers;
   // var members = tempMembers.split(',');
-  console.log(name);
+  console.log(posseName);
   console.log(tempMembers);
   // console.log(members);
   Posse.find({}, function(err, user){
-		Posse.collection.insert({name: name, members: tempMembers});
+		Posse.collection.insert({posseName: posseName, members: tempMembers});
 	});
   res.json('yes');
 });
