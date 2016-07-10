@@ -3,9 +3,29 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var Posse = require('../models/posse');
+var Outing = require('../models/outing');
 var mongoose = require('mongoose');
 var request = require('request');
 var querystring = require('querystring');
+
+/* Twilio stuff */
+// var accountSid = 'ACf3f47245558bab8ef0ad24f5f4c464d0';
+// var authToken = "f5e95817975c0d7d9635ca0e14058113";
+// var client = require('twilio')(accountSid, authToken);
+//
+//
+// router.get('/phoneBob', function(req,res, next){
+//   client.messages.create({
+//                     to: "+15047290928",
+//                     from: "+15045562763",
+//                     body: "Hey Bob! ",
+//                     mediaUrl: ,
+//                 }, function(err, message) {
+//                     console.log("hey");
+//                 });
+// });
+
+
 
 
 /* GET home page. */
