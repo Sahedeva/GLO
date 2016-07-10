@@ -38,7 +38,11 @@ router.post('/createOuting', function(req,res,next){
 });
 
 router.get('/getPosse', function(req,res,next){
-  res.json({allPosses:[{name:"Soroity Girls Night Out", members: ['Briana','Jewel','Crystal']},{name:"Frat Boys", members: ['Frank','Joe','Brad']},{name:"Wallflowers", members: ['Debbie Downer','Shy Girl']}]});
+  Posse.find({}, function(err, posse){
+    var resObj = {allPosses:posse};
+    res.json(resObj);
+  })
+  // res.json({allPosses:[{name:"Soroity Girls Night Out", members: ['Briana','Jewel','Crystal']},{name:"Frat Boys", members: ['Frank','Joe','Brad']},{name:"Wallflowers", members: ['Debbie Downer','Shy Girl']}]});
 });
 
 router.get('/newPosse',function(req,res,next){
