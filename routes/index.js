@@ -26,7 +26,7 @@ router.post('/createOuting', function(req,res,next){
 	// var members = req.body.members;
 	// var time = req.body.time;
 	var destination = req.body.destination;
-	request('https://maps.googleapis.com/maps/api/geocode/json?address='+destination+'&key=AIzaSyCzamJCTDzw3LKpKk1TTyoDXu8lHoCzrS0', function (error, response, body) {
+	request('https://maps.googleapis.com/maps/api/geocode/json?address='+destination+'&key=AIzaSyCzamJCTDzw3LKpKk1TTyoDXu8lHoCzrS0&libraries=places', function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			var loc = JSON.parse(body);
 			console.log(loc.results[0].geometry.location.lat);
