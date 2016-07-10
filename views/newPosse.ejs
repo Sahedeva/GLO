@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>New User Test</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/stylesheets/style.css" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+    <div class="container-fluid">
+             <div class="venue_stats new_admin">
+                <h2 class="page_title"><%= title %></h2>
+                <br>
+                <form class="new_posse_form" name="new_posse_form" enctype="multipart/form-data" action="/new_posse" method="POST">
+                   <input type="text" name="name" placeholder="Posse Name...">
+                   <br><br>
+                   <div class="input_fields_wrap">
+                   	<div>
+                   		<input type="text" name="member0" placeholder="Member Name...">
+               				<br>
+                   	</div>
+               		</div>
+
+               		<button class="add_field_button btn btn-default">Add Another Member</button>
+               		<input id="numberOfMembers" style="display: none" type="text" name="numberOfMembers" value="0">
+               		<!-- <input type="submit" value="Upload"> -->
+               		<input class="submit-btn btn btn-default" type="submit" name="submit" value="Submit">
+               	</form>
+             </div>
+    </div>
+
+	<script>
+	$(document).ready(function() {
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+
+    var x = 0; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+          x++; //text box increment
+          $('#numberOfMembers').val(x);
+          var appText = '<div><input type="text" name="member"'+x+'" placeholder="Member Name..."><br><input style="display: none" type="text" name="step" value="'+x+'"><a href="#" class="remove_field">Remove</a></div>'
+          $(wrapper).append(appText); //add input box
+    });
+
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+        $('#numberOfSteps').val(x);
+    })
+  });
+	</script>
+
+       <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+  </body>
+</html>

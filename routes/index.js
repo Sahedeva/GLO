@@ -18,6 +18,26 @@ router.get('/chat', function(req,res,next){
   res.render('chat', { title: 'Chat Room'});
 });
 
+router.post('/createOuting', function(req,res,next){
+  var name = req.body.name;
+  var members = req.body.members;
+  var time = req.body.time;
+  var destination = req.body.desitnation;
+
+})
+
+router.get('/getPosse', function(req,res,next){
+  res.json({allPosses:[{name:"Soroity Girls Night Out", members: ['Briana','Jewel','Crystal']},{name:"Frat Boys", members: ['Frank','Joe','Brad']},{name:"Wallflowers", members: ['Debbie Downer','Shy Girl']}]});
+});
+
+router.get('/newPosse',function(req,res,next){
+  res.render('newPosse',{title:'New Posse Form'});
+});
+
+router.post('/createPosse', function(req,res,next){
+
+});
+
 router.post('/new_user', function(req,res,next){
 	var name = req.body.name;
 	var alias = req.body.alias;
