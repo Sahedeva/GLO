@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <title><%= title %></title>
@@ -13,6 +13,88 @@
       socket.on('socketToMe', function (data) {
         console.log(data);
       });
+    </script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <form class="chat">
+      <label for="chatMessage">Chat Message: </label>
+      <input id="chat" type="text" name="chatMessage" value="">
+      <input type="submit" name="submit" value="Submit">
+    </form>
+    <div class="result">
+
+    </div>
+    <form class="join">
+      <input id="channel" type="text">
+      <input type="submit" value="Join">
+    </form>
+    <form class="chatJoin">
+      <label for="chatMessage">Chat Message: </label>
+      <input id="chatJoin" type="text" name="chatMessage" value="">
+      <input type="submit" name="submit" value="Submit">
+    </form>
+    <div class="resultJoin"></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var clientId = 0;
+      var socket = io.connect('/');
+      socket.on('conn', function(data){
+        clientId = data.clientId;
+        console.log(data.message);
+
+      });
+      socket.on('stats', function(data) {
+        console.log('Connected clients:', data.numClients);
+        console.log('Got announcement:', data.message);
+
+      });
+      // socket.on('announcements', function(data) {
+      //     console.log('Got announcement:', data.message);
+      // });
+
+      // socket.emit('event', { message: 'Hey, I have an important message!', clientId:clientId});
+      $('.chat').on('submit', function(event){
+        event.preventDefault();
+        var message = $("#chat").val();
+        $("#chat").val("");
+        console.log(message);
+        socket.emit('event', { message: message, clientId:clientId });
+      });
+      //
+      socket.on('Incoming', function(data) {
+          console.log('Incoming message from client#',data.clientId,':', data.message);
+          $('.result').append('Client #'+data.clientId+':'+data.message+'<br>');
+      });
+       $('.join').on('submit', function(event) {
+          event.preventDefault();
+          var channel = $('#channel').val();
+          socket.emit('join', channel, function() {
+            console.log(channel);
+          });
+        });
+       $('.chatJoin').on('submit', function(event){
+        event.preventDefault();
+        var message = $("#chatJoin").val();
+        $("#chatJoin").val("");
+        console.log(message);
+        socket.emit('eventJoin', { message: message, clientId:clientId });
+      });
+       socket.on('IncomingJoin', function(data) {
+          console.log('Incoming message from client#',data.clientId,':', data.message);
+          $('.resultJoin').append('Client #'+data.clientId+':'+data.message+'<br>');
+      });
+      //
     </script>
   </body>
 </html>
