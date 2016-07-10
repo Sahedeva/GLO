@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var posseSchema = new mongoose.Schema({
   name: String,
-  members: String,
+  members: Array,
   created_at: Date,
   updated_at: Date
 });

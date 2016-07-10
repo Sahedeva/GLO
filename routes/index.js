@@ -23,14 +23,15 @@ router.get('/chat', function(req,res,next){
 
 router.post('/createOuting', function(req,res,next){
 	var name = req.body.name;
-	var members = req.body.members;
-	var time = req.body.time;
+	// var members = req.body.members;
+	// var time = req.body.time;
 	var destination = req.body.destination;
 	request('https://maps.googleapis.com/maps/api/geocode/json?address='+destination+'&key=AIzaSyCzamJCTDzw3LKpKk1TTyoDXu8lHoCzrS0', function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			var loc = JSON.parse(body);
 			console.log(loc.results[0].geometry.location.lat);
 			console.log(loc.results[0].geometry.location.lng);
+      res.json({lat:loc.results[0].geometry.location.lat,lng:loc.results[0].geometry.location.lng});
 		}
 	})
 
@@ -44,7 +45,12 @@ router.get('/newPosse',function(req,res,next){
   res.render('newPosse',{title:'New Posse Form'});
 });
 
-
+router.get('/getRealPosse',function(req,res,next){
+  Posse.find({}, function(err, posse){
+    var resObj = {allPosses:posse};
+    res.json(resObj);
+  })
+});
 
 
 router.post('/createPosse', function(req,res,next){
@@ -52,11 +58,8 @@ router.post('/createPosse', function(req,res,next){
   var posseName = req.query.posseName;
   var tempMembers = req.query.members;
   var members = tempMembers.split(',');
-  console.log(posseName);
-  console.log(tempMembers);
-  console.log(members);
   Posse.find({}, function(err, posse){
-		Posse.collection.insert({posseName: posseName, members:members});
+		Posse.collection.insert({name: posseName, members:members});
 	});
   res.json('yes');
 });
