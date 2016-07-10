@@ -35,7 +35,13 @@ router.get('/newPosse',function(req,res,next){
 });
 
 router.post('/createPosse', function(req,res,next){
-
+  var name = req.body.posseName;
+  var tempMembers = req.body.posseMembers;
+  var members = tempMembers.split(',');
+  console.log(name);
+  console.log(tempMembers);
+  console.log(members);
+  res.json('yes');
 });
 
 router.post('/new_user', function(req,res,next){
